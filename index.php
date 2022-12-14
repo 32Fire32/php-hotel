@@ -38,21 +38,22 @@ $isVote = $_GET['vote'];
             'distance_to_center' => 50
         ],
     ];
-   if($isPark != 'choose'){
-    if($isPark == 'true')
-     {
-        $with_park = array_filter($hotels, function($data){
-            return ($data['parking'] == true);
-        });
-        $hotels = $with_park;
-        
-    } else if($isPark == 'false'){
-        $without_park = array_filter($hotels, function($data){
-            return ($data['parking'] == false);
-        });
-        $hotels = $without_park;
-    }
-}
+        if($isPark != 'choose'){
+            if($isPark == 'true')
+             {
+                $with_park = array_filter($hotels, function($data){
+                    return ($data['parking'] == true);
+                });
+                $hotels = $with_park;
+                
+            } else if($isPark == 'false'){
+                $without_park = array_filter($hotels, function($data){
+                    return ($data['parking'] == false);
+                });
+                $hotels = $without_park;
+            }
+        }
+   
 
 if($isVote != 'choose'){
     if($isVote == '1'){
@@ -136,17 +137,15 @@ if($isVote != 'choose'){
         <?php }  ?>
     </tr>
     <tr>
-        <?php if($isPark == true) { ?>
-            <th scope="row">Parcheggio</th>
-            <?php foreach ($hotels as $hotel) { ?>
-                <th scope="col"><?php 
-                if($hotel['parking'] == true){
-                    echo 'Si';
-                } else {
-                    echo 'No';
-                } ?></th>
-            <?php }  ?>
-        <?php } ?>
+        <th scope="row">Parcheggio</th>
+        <?php foreach ($hotels as $hotel) { ?>
+            <th scope="col"><?php 
+            if($hotel['parking'] == true){
+                echo 'Si';
+            } else {
+                echo 'No';
+            } ?></th>
+        <?php }  ?>
     </tr>
     <tr>
         <th scope="row">Voto</th>
