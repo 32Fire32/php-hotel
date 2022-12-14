@@ -36,8 +36,8 @@
             'vote' => 2,
             'distance_to_center' => 50
         ],
-
     ];
+    
 ?>
 
 <!DOCTYPE html>
@@ -52,7 +52,7 @@
 </head>
 <body>
     <h1>I NOSTRI HOTEL</h1>
-    <ul>
+    <!-- <ul>
         <?php foreach ($hotels as $hotel) { ?>
             <li>
             <p><b>NOME HOTEL</b> <?php echo $hotel['name'] ?></p>
@@ -62,6 +62,49 @@
             <p><b>DISTANZA DAL CENTRO</b> <?php echo $hotel['distance_to_center'] ?></p>        
             </li>    
         <?php }  ?>
-    </ul>
+    </ul> -->
+
+    
+    <table class="table">
+    <thead><tr>
+        <th scope="col">#</th>
+        <?php foreach ($hotels as $hotel) { ?>        
+            <th scope="col"><?php echo $hotel['name'] ?></th>
+        <?php }  ?>
+        </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th scope="row">Descrizione</th>
+         <?php foreach ($hotels as $hotel) { ?>
+            <th scope="col"><?php echo $hotel['description'] ?></th>
+        <?php }  ?>
+    </tr>
+    <tr>
+        <th scope="row">Parcheggio</th>
+         <?php foreach ($hotels as $hotel) { ?>
+            <th scope="col"><?php 
+            if($hotel['parking'] == true){
+                echo 'Si';
+            } else {
+                echo 'No';
+            } ?></th>
+        <?php }  ?>
+    </tr>
+    <tr>
+        <th scope="row">Voto</th>
+         <?php foreach ($hotels as $hotel) { ?>
+            <th scope="col"><?php echo $hotel['vote'] ?></th>
+        <?php }  ?>
+    </tr>
+    <tr>
+        <th scope="row">Distanza dal centro</th>
+         <?php foreach ($hotels as $hotel) { ?>
+            <th scope="col"><?php echo $hotel['distance_to_center'] ?> km</th>
+        <?php }  ?>
+    </tr>
+    </tbody>
+</table>
+
 </body>
 </html>
