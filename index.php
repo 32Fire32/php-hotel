@@ -53,10 +53,15 @@
 <body>
     <h1>I NOSTRI HOTEL</h1>
     <ul>
-        <?php foreach ($hotels as $hotel) { 
-            foreach($hotel as $descr) { ?>
-        <li><?php echo $descr?></li>
-        <?php } } ?>
+        <?php foreach ($hotels as $hotel) { ?>
+            <li>
+            <p><b>NOME HOTEL</b> <?php echo $hotel['name'] ?></p>
+            <p><b>DESCRIZIONE</b> <?php echo $hotel['description'] ?></p>
+            <p><b>PARCHEGGIO</b> <?php echo $hotel['parking'] ?></p>
+            <p><b>VOTO</b> <?php echo $hotel['vote'] ?></p>
+            <p><b>DISTANZA DAL CENTRO</b> <?php echo $hotel['distance_to_center'] ?></p>        
+            </li>    
+        <?php }  ?>
     </ul>
 </body>
 </html>
