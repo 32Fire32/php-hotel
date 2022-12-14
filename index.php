@@ -1,5 +1,6 @@
 <?php
 $isPark = $_GET['parking'];
+$isVote = $_GET['vote'];
     $hotels = [
         [
             'name' => 'Hotel Belvedere',
@@ -37,7 +38,7 @@ $isPark = $_GET['parking'];
             'distance_to_center' => 50
         ],
     ];
-   
+   if($isPark != 'choose'){
     if($isPark == 'true')
      {
         $with_park = array_filter($hotels, function($data){
@@ -51,6 +52,40 @@ $isPark = $_GET['parking'];
         });
         $hotels = $without_park;
     }
+}
+
+if($isVote != 'choose'){
+    if($isVote == '1'){
+        $one_star_more = array_filter($hotels, function($data){
+            return ($data['vote'] >= 1);
+        });
+        $hotels = $one_star_more;
+    }
+    else if($isVote == '2'){
+        $two_star_more = array_filter($hotels, function($data){
+            return ($data['vote'] >= 2);
+        });
+        $hotels = $two_star_more;
+    }    
+    else if($isVote == '3'){
+        $three_star_more = array_filter($hotels, function($data){
+            return ($data['vote'] >= 3);
+        });
+        $hotels = $three_star_more;
+    }
+    else if($isVote == '4'){
+        $four_star_more = array_filter($hotels, function($data){
+            return ($data['vote'] >= 4);
+        });
+        $hotels = $four_star_more;
+    }  
+    else if($isVote == '5'){
+       $five_star_more = array_filter($hotels, function($data){
+           return ($data['vote'] >= 5);
+       });
+       $hotels = $five_star_more;
+   }
+}
 ?>
 
 <!DOCTYPE html>
@@ -69,9 +104,18 @@ $isPark = $_GET['parking'];
     <form action="index.php" method="GET">
         <label for="park">Parcheggio:</label>
         <select name="parking" id="park">
-            <option default value="">Scegli:</option>
+            <option default value="choose">Scegli:</option>
             <option value="true">Con parcheggio</option>
             <option value="false">Senza parcheggio</option>
+        </select>
+        <label for="stars">Per voto:</label>
+        <select name="vote" id="stars">
+            <option default value="choose">Scegli:</option>
+            <option value="1">1 Stella</option>
+            <option value="2">2 Stelle</option>
+            <option value="3">3 Stelle</option>
+            <option value="4">4 Stelle</option>
+            <option value="5">5 Stelle</option>
         </select>
         <button type="submit">Invia</button>
     </form>
