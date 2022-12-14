@@ -1,6 +1,6 @@
 <?php
+$isPark = $_GET['parking'];
     $hotels = [
-
         [
             'name' => 'Hotel Belvedere',
             'description' => 'Hotel Belvedere Descrizione',
@@ -37,7 +37,20 @@
             'distance_to_center' => 50
         ],
     ];
-    
+   
+    if($isPark == 'true')
+     {
+        $with_park = array_filter($hotels, function($data){
+            return ($data['parking'] == true);
+        });
+        $hotels = $with_park;
+        
+    } else if($isPark == 'false'){
+        $without_park = array_filter($hotels, function($data){
+            return ($data['parking'] == false);
+        });
+        $hotels = $without_park;
+    }
 ?>
 
 <!DOCTYPE html>
@@ -52,19 +65,17 @@
 </head>
 <body>
     <h1>I NOSTRI HOTEL</h1>
-    <!-- <ul>
-        <?php foreach ($hotels as $hotel) { ?>
-            <li>
-            <p><b>NOME HOTEL</b> <?php echo $hotel['name'] ?></p>
-            <p><b>DESCRIZIONE</b> <?php echo $hotel['description'] ?></p>
-            <p><b>PARCHEGGIO</b> <?php echo $hotel['parking'] ?></p>
-            <p><b>VOTO</b> <?php echo $hotel['vote'] ?></p>
-            <p><b>DISTANZA DAL CENTRO</b> <?php echo $hotel['distance_to_center'] ?></p>        
-            </li>    
-        <?php }  ?>
-    </ul> -->
-
-    
+<!-- FORM -->
+    <form action="index.php" method="GET">
+        <label for="park">Parcheggio:</label>
+        <select name="parking" id="park">
+            <option default value="">Scegli:</option>
+            <option value="true">Con parcheggio</option>
+            <option value="false">Senza parcheggio</option>
+        </select>
+        <button type="submit">Invia</button>
+    </form>
+<!-- TABELLA -->
     <table class="table">
     <thead><tr>
         <th scope="col">#</th>
@@ -81,15 +92,17 @@
         <?php }  ?>
     </tr>
     <tr>
-        <th scope="row">Parcheggio</th>
-         <?php foreach ($hotels as $hotel) { ?>
-            <th scope="col"><?php 
-            if($hotel['parking'] == true){
-                echo 'Si';
-            } else {
-                echo 'No';
-            } ?></th>
-        <?php }  ?>
+        <?php if($isPark == true) { ?>
+            <th scope="row">Parcheggio</th>
+            <?php foreach ($hotels as $hotel) { ?>
+                <th scope="col"><?php 
+                if($hotel['parking'] == true){
+                    echo 'Si';
+                } else {
+                    echo 'No';
+                } ?></th>
+            <?php }  ?>
+        <?php } ?>
     </tr>
     <tr>
         <th scope="row">Voto</th>
